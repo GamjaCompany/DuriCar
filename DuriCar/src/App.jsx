@@ -1,6 +1,6 @@
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import GoogleMap from "./components/GoogleMap"
-import './App.css'
+import './style/App.css'
 
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
