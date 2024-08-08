@@ -1,0 +1,11 @@
+.btn {
+    position: absolute;
+    bottom: 20px; /* 또는 원하는 위치 */
+    right: 20px;  /* 또는 원하는 위치 */
+    z-index: 1000; /* 지도 위에 버튼이 오도록 설정 */
+    margin: auto 0;
+}
+
+.btn:hover {
+    scale: 1.1;
+}
