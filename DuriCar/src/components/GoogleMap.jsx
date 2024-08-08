@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import Container from 'react-bootstrap/ThemeProvider';
+import "../style/googleMap.css";
+
 
 function GoogleMap() {
 
@@ -19,7 +22,11 @@ function GoogleMap() {
         }
     }, []);
 
-    return <div ref={ref} id="map" style={{ minHeight: '100vh' }} />
+    return (
+        <Container fluid className="d-flex justify-content-center align-items-center">
+            <div id="map" ref={ref} />
+        </Container>
+    );
 }
 
 export default GoogleMap;
