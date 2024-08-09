@@ -1,0 +1,38 @@
+.contents {
+    position: absolute;
+    bottom: 0px; /* 또는 원하는 위치 */
+    right: 0px;  /* 또는 원하는 위치 */
+    z-index: 1000; /* 지도 위에 버튼이 오도록 설정 */
+}
+
+.contents>.card {
+    margin: auto 0;
+}
+
+/* 화면 너비가 768px 이상일 때 너비 제한 */
+@media (min-width: 768px) {
+    .contents>.card {
+        max-width: 450px;
+        margin: 0 auto;
+    }
+}
+
+.card-body>.btn {
+    margin: auto 0;
+}
+
+.img {
+    width: 100%;
+    height: 80%;
+    background-image: url("../assets/img/gomduri.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.speech-bubble {
+	position: relative;
+	background: gainsboro;
+	border-radius: .4em;
+    font-size: small;
+}

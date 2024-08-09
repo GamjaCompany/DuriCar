@@ -1,0 +1,13 @@
+#map {
+    width: 100vw;
+    height: 100vh; /* 전체 화면을 차지 */
+    min-height: 400px; /* 최소 높이 설정 */
+}
+
+/* 화면 너비가 768px 이상일 때 너비 제한 */
+@media (min-width: 768px) {
+    #map {
+        max-width: 720px;
+        margin: 0 auto; /* 수평 중앙 정렬 */
+    }
+}

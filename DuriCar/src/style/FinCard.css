@@ -1,0 +1,17 @@
+.fin>.card-header>h2 {
+    margin: 0;
+    font-size: larger;
+    font-weight: bold;
+    color: black;
+}
+
+.fin>.card-body p {
+    white-space: nowrap;
+    font-size: medium;
+}
+
+.fin>.card-body strong {
+    white-space: nowrap;
+    font-size: large;
+    color: navy;
+}
