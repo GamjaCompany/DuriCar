@@ -18,8 +18,7 @@ function StatusBar() {
                 <Container>
                     <Row className='detailInfo'>
                         <Col
-                            md={7}
-                            sm={12}
+                            xs={8}
                         >
                             <h2>곰두리_BOT</h2>
                             <div className='graph'>
@@ -32,8 +31,7 @@ function StatusBar() {
                             </div>
                         </Col>
                         <Col 
-                            md={5}
-                            sm={0}
+                            xs={4}
                         >
                             <div className='img'>image</div>
                         </Col>

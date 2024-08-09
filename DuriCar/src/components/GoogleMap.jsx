@@ -23,7 +23,7 @@ function GoogleMap() {
     }, []);
 
     return (
-        <Container fluid className="d-flex justify-content-center align-items-center">
+        <Container fluid="xs" className="d-flex justify-content-center align-items-center">
             <div id="map" ref={ref} />
         </Container>
     );
