@@ -1,0 +1,8 @@
+.cancelBtn {
+    z-index: 1000; /* 지도 위에 버튼이 오도록 설정 */
+    margin: auto 0;
+}
+
+.cancelBtn:hover {
+    scale: 1.1;
+}
