@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/App.css'
 import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';
+import FinCard from './components/FinCard';
 
 const render = (status) => {
     switch (status) {
@@ -52,6 +53,8 @@ function App() {
             {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
         </div>
     )
+
+    // return <FinCard />;
 }
 
 export default App
