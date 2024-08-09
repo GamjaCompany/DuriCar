@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Container from 'react-bootstrap/ThemeProvider';
+import Container from 'react-bootstrap/Container';
 import "../style/googleMap.css";
 
 
@@ -23,7 +23,7 @@ function GoogleMap() {
     }, []);
 
     return (
-        <Container fluid className="d-flex justify-content-center align-items-center">
+        <Container fluid="xs" className="d-flex justify-content-center align-items-center">
             <div id="map" ref={ref} />
         </Container>
     );
