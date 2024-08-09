@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Gauge from './Gauge';
 import '../style/StatusBar.css';
 
 function StatusBar() {
@@ -18,20 +19,17 @@ function StatusBar() {
                 <Container>
                     <Row className='detailInfo'>
                         <Col
-                            xs={8}
+                            xs={7}
                         >
                             <h2>곰두리_BOT</h2>
                             <div className='graph'>
-                                <p>일반</p>
-                                {/* 일반 게이지 */}
-                                <p>플라스틱</p>
-                                {/* 플라스틱 게이지 */}
-                                <p>그외</p>
-                                {/* 그외 */}
+                                <Gauge type="일반" value={50}/>
+                                <Gauge type="플라스틱" value={50}/>
+                                <Gauge type="그외" value={50}/>
                             </div>
                         </Col>
                         <Col 
-                            xs={4}
+                            xs={5}
                         >
                             <div className='img'>image</div>
                         </Col>
@@ -39,7 +37,7 @@ function StatusBar() {
 
                 </Container>
                 <Button
-                    className='justCall btn w-80'
+                    className='justCall btn w-80 mt-2'
                     variant='dark'
                     size='lg'
                 > 즉시호출 </Button>
