@@ -16,6 +16,13 @@ function GoogleMap() {
                     lng: 127.0,
                 },
                 zoom: 16,
+
+                // Standard UI control
+                zoomControl: false,
+                mapTypeControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false
             });
 
             setGoogleMap(initialMap);
