@@ -75,7 +75,7 @@ function StatusBar() {
                                 <Col
                                     xs={5}
                                 >
-                                    <div className='speech-bubble mb-2 p-2'>카트가 보이면 <br/> 손을 들어주세요</div>
+                                    {(call) && (<div className='speech-bubble mb-2 p-2'>카트가 보이면 <br/> 손을 들어주세요</div>)}
                                     <div className='img'></div>
                                 </Col>
                             </Row>
