@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Gauge from './Gauge';
 import '../style/StatusBar.css';
 import { useEffect, useRef, useState } from 'react';
-// import CancelButton from './CancelButton';
+import Gomduri from '../assets/img/gomduri.png';
 
 function StatusBar() {
     const [call, setCall] = useState(false);
@@ -75,7 +75,8 @@ function StatusBar() {
                                 <Col
                                     xs={5}
                                 >
-                                    <div className='img'>image</div>
+                                    <div className='speech-bubble mb-2 p-2'>카트가 보이면 <br/> 손을 들어주세요</div>
+                                    <div className='img'></div>
                                 </Col>
                             </Row>
 
