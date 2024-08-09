@@ -4,6 +4,7 @@ import GoogleMap from "./components/GoogleMap"
 import CallButton from "./components/CallButton";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/App.css'
+import StatusBar from './components/StatusBar';
 
 const render = (status) => {
     switch (status) {
@@ -15,7 +16,9 @@ const render = (status) => {
             return (
                 <div className="mapWrapper">
                     <GoogleMap />
+                    
                     <CallButton />
+                    <StatusBar />
                 </div>
             )
     }

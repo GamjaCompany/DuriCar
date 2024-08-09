@@ -5,7 +5,7 @@ function CallButton() {
 
     return (
         <Button
-            className='btn'
+            className='callBtn'
             variant='dark'
             size='lg'
         >호출요청</Button>

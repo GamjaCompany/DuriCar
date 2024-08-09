@@ -1,0 +1,21 @@
+.card {
+    position: absolute;
+    bottom: 0px; /* 또는 원하는 위치 */
+    right: 0px;  /* 또는 원하는 위치 */
+    z-index: 1000; /* 지도 위에 버튼이 오도록 설정 */
+    margin: auto 0;
+}
+
+/* 화면 너비가 768px 이상일 때 너비 제한 */
+@media (min-width: 768px) {
+    .card {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+.card-body>.btn {
+    /* position: absolute; */
+    /* z-index: 1000; */
+    margin: auto 0;
+}
