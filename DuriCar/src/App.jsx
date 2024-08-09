@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/App.css'
 import StatusBar from './components/StatusBar';
+import ResultBar from './components/ResultBar';
 
 const render = (status) => {
     switch (status) {
@@ -23,12 +24,19 @@ const render = (status) => {
 
 function App() {
     const [req, setReq] = useState(false);
+    const [res, setRes] = useState(false);
 
     const handleRequest = () => {
         setReq(true);
     }
 
+    const handleResult = () => {
+        setReq(false);
+        setRes(true);
+    }
+
     return (
+        
         <div className='content'>
             <Wrapper apiKey={import.meta.env.VITE_GOOGLEMAP_KEY} render={render} />
             {(!req) && (
@@ -40,6 +48,8 @@ function App() {
                 >호출요청</Button>
             )}
             {(req) && (<StatusBar />)}
+            {(res) && (<ResultBar />)}
+            {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
         </div>
     )
 }
