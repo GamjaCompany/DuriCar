@@ -26,6 +26,13 @@ function GoogleMap() {
                 fullscreenControl: false
             });
 
+            // initialMap.addListener("click", (event) => {
+            //     const lat = event.latLng.lat();
+            //     const lng = event.latLng.lng();
+            //     setClickPosition({ lat, lng }); // 클릭한 위치의 위도와 경도를 상태에 저장
+            //     console.log("Clicked location:", { lat, lng }); // 콘솔에 출력
+            // });
+
             setGoogleMap(initialMap);
         }
     }, []);
