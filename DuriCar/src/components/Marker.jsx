@@ -1,11 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../style/Marker.css";
 // const { AdvancedMarkerElement, PinElement } = google.maps.marker;  // Marker에서 사용
 
 
 function Marker({ user, map, position, title }) {
+    const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
+
     useEffect(() => {
-        if (map) {
+        const checkGoogleMapsLoaded = () => {
+            if (window.google && window.google.maps.marker) {
+                setGoogleMapsLoaded(true);
+            } else {
+                setTimeout(checkGoogleMapsLoaded, 100); // 100ms 간격으로 재시도
+            }
+        };
+
+        checkGoogleMapsLoaded();
+    }, []);
+    
+    useEffect(() => {
+        if (map && googleMapsLoaded) {
             const userPin = new google.maps.marker.PinElement({ // 핀 스타일
                 background: "#267CB5",
                 borderColor: "#ffffff",
@@ -36,7 +50,7 @@ function Marker({ user, map, position, title }) {
                 });
             }
         }
-    }, [map, position, title]);
+    }, [map, position, title, googleMapsLoaded]);
 
     return null;    // html 객체 렌더링 안함
 }
