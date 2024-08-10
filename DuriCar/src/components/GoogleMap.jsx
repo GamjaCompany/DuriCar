@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Container from 'react-bootstrap/Container';
+import Marker from "./Marker";
 import "../style/googleMap.css";
 
 
@@ -32,6 +33,16 @@ function GoogleMap() {
     return (
         <Container fluid="xs" className="d-flex justify-content-center align-items-center">
             <div id="map" ref={ref} />
+            {googleMap && (
+                <Marker
+                    map={googleMap}
+                    position={{ 
+                            lat: 37.5, 
+                            lng: 127.0 
+                        }}
+                    title="Hello World!"
+                />
+            )}
         </Container>
     );
 }
