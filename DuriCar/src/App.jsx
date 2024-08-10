@@ -15,6 +15,7 @@ const render = (status) => {
         case Status.FAILURE:
             return <p>에러 발생</p>;
         case Status.SUCCESS:
+            google.maps.importLibrary('marker');
             return (
                 <div className="mapWrapper">
                     <GoogleMap />
