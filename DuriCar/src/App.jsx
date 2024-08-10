@@ -26,7 +26,7 @@ const render = (status) => {
 
 function App() {
     const [req, setReq] = useState(false);
-    const [res, setRes] = useState(false);
+    const [res, setRes] = useState(true);
 
     const handleRequest = () => {
         setReq(true);
