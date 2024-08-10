@@ -7,14 +7,14 @@ function GoogleMap() {
 
     const ref = useRef(null);
     const [googleMap, setGoogleMap] = useState();
-    const [clickPosition, setClickPosition] = useState({lat:null, lng:null});
+    const [clickPosition, setClickPosition] = useState({ lat: null, lng: null });
 
     useEffect(() => {
         if (ref.current) {
             const initialMap = new window.google.maps.Map(ref.current, {
                 center: {       // 초기 위치 대운동장
-                                // 정보 저장 소수점 아래 5자리
-                    lat: 37.86832, 
+                    // 정보 저장 소수점 아래 5자리
+                    lat: 37.86832,
                     lng: 127.74315
                 },
                 zoom: 18,
@@ -45,15 +45,35 @@ function GoogleMap() {
         <Container fluid="xs" className="d-flex justify-content-center align-items-center">
             <div id="map" ref={ref} />
             {googleMap && (
-                <Marker
-                    type={"user"}
-                    map={googleMap}
-                    position={{ 
-                            lat: 37.86832, 
-                            lng: 127.74315 
+                <>
+                    <Marker
+                        user={1}
+                        map={googleMap}
+                        position={{
+                            lat: 37.86832,
+                            lng: 127.74315
                         }}
-                    title="Hello World!"
-                />
+                        title="My position"
+                    />
+                    <Marker
+                        user={0}
+                        map={googleMap}
+                        position={{
+                            lat: 37.86881,
+                            lng: 127.74305
+                        }}
+                        title="Car1"
+                    />
+                    <Marker
+                        user={0}
+                        map={googleMap}
+                        position={{
+                            lat: 37.86799,
+                            lng: 127.74232
+                        }}
+                        title="Car2"
+                    />
+                </>
             )}
         </Container>
     );
