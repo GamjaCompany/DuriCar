@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Marker from "./Marker";
-import "../style/googleMap.css";
+import "../style/GoogleMap.css";
 
 function GoogleMap() {
 
