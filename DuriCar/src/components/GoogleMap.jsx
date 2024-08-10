@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Marker from "./Marker";
 import "../style/googleMap.css";
 
-
 function GoogleMap() {
 
     const ref = useRef(null);
@@ -13,11 +12,12 @@ function GoogleMap() {
     useEffect(() => {
         if (ref.current) {
             const initialMap = new window.google.maps.Map(ref.current, {
-                center: {
-                    lat: 37.5,
-                    lng: 127.0,
+                center: {       // 초기 위치 대운동장
+                                // 정보 저장 소수점 아래 5자리
+                    lat: 37.86832, 
+                    lng: 127.74315
                 },
-                zoom: 16,
+                zoom: 18,
                 mapId: '47775df8eb56b6df',
 
                 // Standard UI control
@@ -25,12 +25,10 @@ function GoogleMap() {
                 mapTypeControl: false,
                 streetViewControl: false,
                 rotateControl: false,
-                fullscreenControl: false,
-
-                minZoom: 10,
-                maxZoom: 18,
+                fullscreenControl: false
             });
 
+            // check click position
             initialMap.addListener("click", (event) => {
                 const lat = event.latLng.lat();
                 const lng = event.latLng.lng();
@@ -46,16 +44,17 @@ function GoogleMap() {
     return (
         <Container fluid="xs" className="d-flex justify-content-center align-items-center">
             <div id="map" ref={ref} />
-            {/* {googleMap && (
+            {googleMap && (
                 <Marker
+                    type={"user"}
                     map={googleMap}
                     position={{ 
-                            lat: 37.5, 
-                            lng: 127.0 
+                            lat: 37.86832, 
+                            lng: 127.74315 
                         }}
                     title="Hello World!"
                 />
-            )} */}
+            )}
         </Container>
     );
 }

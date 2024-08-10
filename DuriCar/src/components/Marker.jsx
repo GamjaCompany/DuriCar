@@ -1,15 +1,24 @@
 import { useEffect } from "react";
+// const { AdvancedMarkerElement, PinElement } = google.maps.marker;  // Marker에서 사용
 
-function Marker({map, lat, lng, title}) {
+
+function Marker({ type, map, position, title }) {
     useEffect(() => {
         if (map) {
-            new google.maps.marker.AdvancedMarkerElement({
+            const pin = new google.maps.marker.PinElement({ // 핀 스타일
+                background: "#267CB5",
+                borderColor: "#ffffff",
+                glyphColor: "white"
+            })
+
+            new google.maps.marker.AdvancedMarkerElement({      // render point
                 map,
-                position: {lat: 37.4239163, lng: -122.0947209},
-                title
+                content: pin.element,
+                position: { lat: position.lat, lng: position.lng },
+                title: title
             });
         }
-    }, [map, lat, lng, title]);
+    }, [map, position, title]);
 
     return null;    // html 객체 렌더링 안함
 }
