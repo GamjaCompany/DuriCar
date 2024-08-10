@@ -8,25 +8,28 @@ import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';
 import FinCard from './components/FinCard';
 
-const render = (status) => {
-    switch (status) {
-        case Status.LOADING:
-            return <p>로딩중...</p>;
-        case Status.FAILURE:
-            return <p>에러 발생</p>;
-        case Status.SUCCESS:
-            return (
-                <div className="mapWrapper">
-                    <GoogleMap />
-                </div>
-            )
-    }
-};
-
 function App() {
     const [req, setReq] = useState(false);
     const [res, setRes] = useState(false);
 
+    const render = (status) => {
+        switch (status) {
+            case Status.LOADING:
+                return <p>로딩중...</p>;
+            case Status.FAILURE:
+                return <p>에러 발생</p>;
+            case Status.SUCCESS:
+                google.maps.importLibrary('marker');
+                return (
+                    <div className="mapWrapper">
+                        <GoogleMap />
+                    </div>
+                )
+            default:
+                return null;
+        }
+    };
+    
     const handleRequest = () => {
         setReq(true);
     }
