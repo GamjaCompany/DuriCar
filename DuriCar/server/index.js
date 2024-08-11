@@ -35,13 +35,17 @@ io.on('connection', (socket) => {
   socket.on('CAL', (msg) => {
     console.log('CAL: ' + msg);
     socket.emit('server', "CALL");
-    // setTimeout(socket.emit('ARR', "ARRIVED"), 100)
+    const calId = setTimeout(() => {
+      socket.emit('ARR', "ARRIVED")
+    }, 3000);
+
+    socket.on('CAN', (msg) => {
+      clearTimeout(calId);    // cancel
+      console.log('CAN: ' + msg);
+      socket.emit('server', "CANCEL");
+    });
   });
 
-  socket.on('CAN', (msg) => {
-    console.log('CAN: ' + msg);
-    socket.emit('server', "CANCEL");
-  });
   socket.on('FIN', (msg) => {
     console.log('FIN: ' + msg);
     socket.emit('server', "COMPLETE");

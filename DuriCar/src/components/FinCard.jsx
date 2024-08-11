@@ -10,7 +10,7 @@ function FinCard() {
         <Card
             bg='info'
             text="white"
-            className="fin w-80"
+            className="fin w-80 justify-content-center"
         >
             <Card.Header><h2>수거한 품목</h2></Card.Header>
             <Card.Body>

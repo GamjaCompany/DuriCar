@@ -12,6 +12,7 @@ import FinCard from './components/FinCard';
 function App() {
     const [reqest, setReqest] = useState(false);
     const [result, setResult] = useState(false);
+    const [displayCard, setDisplayCard] = useState(false);
 
     // server-client setting
     const [message, setMessage] = useState("");
@@ -77,13 +78,18 @@ function App() {
     // FIN
     const handleComplete = () => {
         socket.emit('FIN', "Completed!");
-        // setReqest(false);
         setResult(false);
+        setDisplayCard(true);
+        setTimeout(() => {
+            closeCard();
+            console.log("fincard");
+        }, 3000);
     }
 
-    
-
-
+    // close fincard
+    const closeCard = () => {
+        setDisplayCard(false);
+    }
 
     return (
 
@@ -99,6 +105,7 @@ function App() {
             )}
             {(reqest) && (<StatusBar handleCall={handleCall} handleCancel={handleCancel}/>)}
             {(result) && (<ResultBar handleComplete={handleComplete} />)}
+            {(displayCard) && (<FinCard />)}
             {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
         </div>
     )
