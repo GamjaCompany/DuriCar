@@ -17,7 +17,7 @@ function StatusBar() {
     useEffect(() => {
         if (visible) {
             const handleClickOutside = (e) => {
-                if (visible && !statusBarRef.current.contains(e.target)) {
+                if (visible && !statusBarRef.current.contains(e.target) && !e.target.closest('.btn')) {
                     setVisible(false);
                 }
             };
@@ -43,6 +43,7 @@ function StatusBar() {
     }
 
     return (
+        <>
         <div className='contents w-100 position-absolute' ref={statusBarRef}>
             {(call) && (
                 <Button
@@ -93,6 +94,7 @@ function StatusBar() {
                 )}
             </Card>
         </div>
+        </>
     );
 }
 

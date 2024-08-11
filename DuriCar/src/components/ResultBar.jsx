@@ -6,7 +6,40 @@ import Button from 'react-bootstrap/Button';
 import Gauge from './Gauge';
 import '../style/ResultBar.css';
 import { useEffect, useRef, useState } from 'react';
-import Gomduri from '../assets/img/gomduri.png';
+import PieChart from './PieChat';
+
+// let dummy = [
+//     {
+//         "id": "ruby",
+//         "label": "ruby",
+//         "value": 439,
+//         "color": "hsl(35, 70%, 50%)"
+//     },
+//     {
+//         "id": "php",
+//         "label": "php",
+//         "value": 255,
+//         "color": "hsl(315, 70%, 50%)"
+//     },
+//     {
+//         "id": "lisp",
+//         "label": "lisp",
+//         "value": 408,
+//         "color": "hsl(56, 70%, 50%)"
+//     },
+//     {
+//         "id": "c",
+//         "label": "c",
+//         "value": 562,
+//         "color": "hsl(203, 70%, 50%)"
+//     },
+//     {
+//         "id": "stylus",
+//         "label": "stylus",
+//         "value": 329,
+//         "color": "hsl(264, 70%, 50%)"
+//     }
+// ]
 
 function ResultBar() {
     const [req, setReq] = useState(false);
@@ -62,6 +95,7 @@ function ResultBar() {
                                     <Gauge type="일반" value={50} />
                                     <Gauge type="플라스틱" value={50} />
                                     <Gauge type="그외" value={50} />
+                                    {/* <PieChart data={dummy} /> */}
                                 </div>
                             </Col>
                         </Row>
