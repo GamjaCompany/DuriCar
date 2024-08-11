@@ -17,6 +17,10 @@
     }
 }
 
+.card-body {
+    overflow: hidden;
+}
+
 .card-body>.btn {
     margin: auto 0;
 }
