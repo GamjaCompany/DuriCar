@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import GoogleMap from "./components/GoogleMap"
 import Button from 'react-bootstrap/Button';
@@ -6,11 +6,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/App.css'
 import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';
+import { io } from 'socket.io-client';
 import FinCard from './components/FinCard';
 
 function App() {
     const [req, setReq] = useState(false);
     const [res, setRes] = useState(false);
+
+    // server-client setting
+    const [message, setMessage] = useState("");
+
+    // dummy serverUrl
+    const socket = io(`http://localhost:3000`, {
+        cors: {
+            orign: "*"
+        }
+    });
 
     const render = (status) => {
         switch (status) {
@@ -29,8 +40,15 @@ function App() {
                 return null;
         }
     };
-    
+
+    // server calls
+    socket.on('chat message', (msg) => {
+        console.log(msg)
+    });
+
+    // btn events
     const handleRequest = () => {
+        socket.emit('chat message', "call by client");
         setReq(true);
     }
 
@@ -40,7 +58,7 @@ function App() {
     }
 
     return (
-        
+
         <div className='content'>
             <Wrapper apiKey={import.meta.env.VITE_GOOGLEMAP_KEY} render={render} />
             {(!req) && (

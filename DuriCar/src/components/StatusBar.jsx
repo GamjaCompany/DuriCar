@@ -7,6 +7,7 @@ import Gauge from './Gauge';
 import '../style/StatusBar.css';
 import { useEffect, useRef, useState } from 'react';
 import Gomduri from '../assets/img/gomduri.png';
+import sendMessage from './Socket';
 
 function StatusBar() {
     const [call, setCall] = useState(false);
@@ -35,6 +36,7 @@ function StatusBar() {
     }
 
     const handleCall = () => {
+        sendMessage()
         setCall(true);
     }
 
