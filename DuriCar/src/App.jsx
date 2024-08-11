@@ -10,8 +10,8 @@ import { io } from 'socket.io-client';
 import FinCard from './components/FinCard';
 
 function App() {
-    const [req, setReq] = useState(false);
-    const [res, setRes] = useState(false);
+    const [reqest, setReqest] = useState(false);
+    const [result, setResult] = useState(false);
 
     // server-client setting
     const [message, setMessage] = useState("");
@@ -42,26 +42,54 @@ function App() {
     };
 
     // server calls
-    socket.on('chat message', (msg) => {
+    socket.on('server', (msg) => {
+        console.log(msg);
+    });
+    socket.on('ARR', (msg) => {
         console.log(msg)
+        handleArrived();
     });
 
-    // btn events
-    const handleRequest = () => {
-        socket.emit('chat message', "call by client");
-        setReq(true);
+    // 호출 도착하면 실행
+    // server -> ARR
+    const handleArrived = () => {
+        setReqest(false);
+        setResult(true);
     }
 
-    const handleResult = () => {
-        setReq(false);
-        setRes(true);
+    // btn events
+    // REQ
+    const handleRequest = () => {
+        socket.emit('REQ', "Focus by client");
+        setReqest(true);
     }
+
+    // CAL
+    const handleCall = () => {
+        socket.emit('CAL', "calling...");
+    }
+
+    // CAN
+    const handleCancel = () => {
+        socket.emit('CAN', "canceled");
+    }
+
+    // FIN
+    const handleComplete = () => {
+        socket.emit('FIN', "Completed!");
+        // setReqest(false);
+        setResult(false);
+    }
+
+    
+
+
 
     return (
 
         <div className='content'>
             <Wrapper apiKey={import.meta.env.VITE_GOOGLEMAP_KEY} render={render} />
-            {(!req) && (
+            {(!reqest) && (
                 <Button
                     className='callBtn position-fixed bottom-0 end-0 mb-2 me-2'
                     variant='dark'
@@ -69,8 +97,8 @@ function App() {
                     onClick={handleRequest}
                 >호출요청</Button>
             )}
-            {(req) && (<StatusBar />)}
-            {(res) && (<ResultBar />)}
+            {(reqest) && (<StatusBar handleCall={handleCall} handleCancel={handleCancel}/>)}
+            {(result) && (<ResultBar handleComplete={handleComplete} />)}
             {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
         </div>
     )

@@ -41,8 +41,7 @@ import PieChart from './PieChat';
 //     }
 // ]
 
-function ResultBar() {
-    const [req, setReq] = useState(false);
+function ResultBar({ handleComplete }) {
 
     const statusBarRef = useRef(null);
 
@@ -61,10 +60,6 @@ function ResultBar() {
     //         };
     //     }
     // }, [call]);
-
-    const handleComplete = () => {  // 버튼 누르면 상위 객체로 useState값 전달해줘야 함
-        setReq(true);
-    }
 
     return (
         <div className='contents w-100 position-absolute' ref={statusBarRef}>

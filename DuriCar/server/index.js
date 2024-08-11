@@ -27,10 +27,26 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('chat message', (msg) => {
-    console.log('message: ' + msg);
-    socket.emit('chat message', msg+" check.");
+// cli->svr events
+  socket.on('REQ', (msg) => {
+    console.log('REQ: ' + msg);
+    socket.emit('server',"REQEST");
   });
+  socket.on('CAL', (msg) => {
+    console.log('CAL: ' + msg);
+    socket.emit('server', "CALL");
+    // setTimeout(socket.emit('ARR', "ARRIVED"), 100)
+  });
+
+  socket.on('CAN', (msg) => {
+    console.log('CAN: ' + msg);
+    socket.emit('server', "CANCEL");
+  });
+  socket.on('FIN', (msg) => {
+    console.log('FIN: ' + msg);
+    socket.emit('server', "COMPLETE");
+  });
+
 });
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
