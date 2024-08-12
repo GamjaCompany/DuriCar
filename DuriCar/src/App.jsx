@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
 import GoogleMap from "./components/GoogleMap"
 import Button from 'react-bootstrap/Button';
@@ -6,11 +6,24 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/App.css'
 import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';
+import { io } from 'socket.io-client';
 import FinCard from './components/FinCard';
 
 function App() {
-    const [req, setReq] = useState(false);
-    const [res, setRes] = useState(false);
+    const [reqest, setReqest] = useState(false);
+    const [result, setResult] = useState(false);
+    const [displayCard, setDisplayCard] = useState(false);
+    // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315})
+
+    // server-client setting
+    const [message, setMessage] = useState("");
+
+    // dummy serverUrl
+    const socket = io(`http://192.168.137.53:3000`, {
+        cors: {
+            orign: "*"
+        }
+    });
 
     const render = (status) => {
         switch (status) {
@@ -22,28 +35,73 @@ function App() {
                 google.maps.importLibrary('marker');
                 return (
                     <div className="mapWrapper">
-                        <GoogleMap />
+                        <GoogleMap socket={socket} />
                     </div>
                 )
             default:
                 return null;
         }
     };
-    
+
+    // server calls
+    socket.on('server', (msg) => {
+        console.log(msg);
+    });
+    socket.on('ARR', (msg) => {
+        console.log(msg)
+        handleArrived();
+    });
+    // socket.on('POS', (msg) => {     // 로봇 위치
+    //     console.log("lat: "+msg.lat);
+    //     console.log("lng: "+msg.lng);
+    //     setCarPos({lat: msg.lat, lng: msg.lng});
+    // });
+
+    // 호출 도착하면 실행
+    // server -> ARR
+    const handleArrived = () => {
+        setReqest(false);
+        setResult(true);
+    }    
+
+    // btn events
+    // REQ
     const handleRequest = () => {
-        setReq(true);
+        socket.emit('REQ', "Focus by client");
+        setReqest(true);
     }
 
-    const handleResult = () => {
-        setReq(false);
-        setRes(true);
+    // CAL
+    const handleCall = () => {
+        socket.emit('CAL', "calling...");
+    }
+
+    // CAN
+    const handleCancel = () => {
+        socket.emit('CAN', "canceled");
+    }
+
+    // FIN
+    const handleComplete = () => {
+        socket.emit('FIN', "Completed!");
+        setResult(false);
+        setDisplayCard(true);
+        setTimeout(() => {
+            closeCard();
+            console.log("fincard");
+        }, 3000);
+    }
+
+    // close fincard
+    const closeCard = () => {
+        setDisplayCard(false);
     }
 
     return (
-        
+
         <div className='content'>
             <Wrapper apiKey={import.meta.env.VITE_GOOGLEMAP_KEY} render={render} />
-            {(!req) && (
+            {(!reqest) && (
                 <Button
                     className='callBtn position-fixed bottom-0 end-0 mb-2 me-2'
                     variant='dark'
@@ -51,8 +109,9 @@ function App() {
                     onClick={handleRequest}
                 >호출요청</Button>
             )}
-            {(req) && (<StatusBar />)}
-            {(res) && (<ResultBar />)}
+            {(reqest) && (<StatusBar handleCall={handleCall} handleCancel={handleCancel}/>)}
+            {(result) && (<ResultBar handleComplete={handleComplete} />)}
+            {(displayCard) && (<FinCard />)}
             {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
         </div>
     )
