@@ -50,13 +50,17 @@ function App() {
         console.log(msg)
         handleArrived();
     });
+    socket.on('POS', (msg) => {     // 현위치
+        console.log(msg)
+        handleArrived();
+    });
 
     // 호출 도착하면 실행
     // server -> ARR
     const handleArrived = () => {
         setReqest(false);
         setResult(true);
-    }
+    }    
 
     // btn events
     // REQ
