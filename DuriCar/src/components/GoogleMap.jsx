@@ -3,12 +3,19 @@ import Container from 'react-bootstrap/Container';
 import Marker from "./Marker";
 import "../style/GoogleMap.css";
 
-function GoogleMap() {
+function GoogleMap({socket}) {
 
     const ref = useRef(null);
     const [googleMap, setGoogleMap] = useState();
     const [clickPosition, setClickPosition] = useState({ lat: null, lng: null });
+    const [carPos, setCarPos] = useState({lat: 37, lng: 127})
 
+    socket.on('POS', (msg) => {     // 로봇 위치
+        // console.log("lat: "+msg.lat);
+        // console.log("lng: "+msg.lng);
+        setCarPos({lat: msg.lat, lng: msg.lng});
+    });
+    
     useEffect(() => {
         if (ref.current) {
             const initialMap = new window.google.maps.Map(ref.current, {
@@ -55,7 +62,7 @@ function GoogleMap() {
                         }}
                         title="My position"
                     />
-                    <Marker
+                    {/* <Marker
                         user={0}
                         map={googleMap}
                         position={{
@@ -63,18 +70,15 @@ function GoogleMap() {
                             lng: 127.74305
                         }}
                         title="Car1"
-                    />
+                    /> */}
                     <Marker
                         user={0}
                         map={googleMap}
-                        position={{
-                            lat: 37.86799,
-                            lng: 127.74232
-                        }}
+                        position={carPos}
                         title="Car2"
                     />
                 </>
-            )}
+            )} 
         </Container>
     );
 }

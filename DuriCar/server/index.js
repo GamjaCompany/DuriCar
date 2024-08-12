@@ -23,11 +23,17 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+  // car position
+  const timerId = setInterval(() => {
+    socket.emit('POS', { lat: 37.86799, lng:127.74232});
+  }, 1000);
+
   socket.on('disconnect', () => {
+    clearInterval(timerId);
     console.log('user disconnected');
   });
 
-// cli->svr events
+  // cli->svr events
   socket.on('REQ', (msg) => {
     console.log('REQ: ' + msg);
     socket.emit('server',"REQEST");
