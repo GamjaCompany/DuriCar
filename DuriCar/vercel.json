@@ -1,8 +1,9 @@
 {
-    "rewrites": [
-        {
-            "source": "http://*",
-            "destination": "https://*"
-        }
+    "redirects": [
+      {
+        "source": "/(.*)",
+        "destination": "https://deploy-duri-car.vercel.app/$1",
+        "permanent": true
+      }
     ]
-}
+  }
