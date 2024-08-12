@@ -5,6 +5,13 @@ import "../style/Marker.css";
 
 function Marker({ user, map, position, title }) {
     const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
+    const [marker, setMarker] = useState(null);
+
+    const isValidPosition = (lat, lng) => {
+        const isLatValid = typeof lat === 'number';
+        const isLngValid = typeof lng === 'number';
+        return isLatValid && isLngValid;
+    };
 
     useEffect(() => {
         const checkGoogleMapsLoaded = () => {
@@ -20,6 +27,11 @@ function Marker({ user, map, position, title }) {
     
     useEffect(() => {
         if (map && googleMapsLoaded) {
+            if (!isValidPosition(position.lat, position.lng)) {
+                console.error("Invalid position provided:", position);
+                return;
+            }
+
             const userPin = new google.maps.marker.PinElement({ // 핀 스타일
                 background: "#267CB5",
                 borderColor: "#ffffff",
@@ -34,23 +46,29 @@ function Marker({ user, map, position, title }) {
             //     glyphColor: "white"
             // })
 
-            if (user) {
-                new google.maps.marker.AdvancedMarkerElement({      // render point
+            if (!marker) {
+                const newMarker = new google.maps.marker.AdvancedMarkerElement({
                     map,
-                    content: userPin.element,
+                    content: user ? userPin.element : duriPin,
                     position: { lat: position.lat, lng: position.lng },
                     title: title
                 });
+    
+                setMarker(newMarker);
             } else {
-                new google.maps.marker.AdvancedMarkerElement({      // render point
-                    map,
-                    content: duriPin,
-                    position: { lat: position.lat, lng: position.lng },
-                    title: title
-                });
+                marker.position = { lat: position.lat, lng: position.lng };
+                marker.title = title;
             }
         }
     }, [map, position, title, googleMapsLoaded]);
+
+    useEffect(() => {
+        return () => {
+            if (marker) {
+                marker.setMap(null);
+            }
+        };
+    }, [marker]);
 
     return null;    // html 객체 렌더링 안함
 }
