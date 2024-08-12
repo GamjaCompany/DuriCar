@@ -7,6 +7,12 @@ function Marker({ user, map, position, title }) {
     const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
     const [marker, setMarker] = useState(null);
 
+    const isValidPosition = (lat, lng) => {
+        const isLatValid = typeof lat === 'number';
+        const isLngValid = typeof lng === 'number';
+        return isLatValid && isLngValid;
+    };
+
     useEffect(() => {
         const checkGoogleMapsLoaded = () => {
             if (window.google && window.google.maps.marker) {
@@ -21,6 +27,11 @@ function Marker({ user, map, position, title }) {
     
     useEffect(() => {
         if (map && googleMapsLoaded) {
+            if (!isValidPosition(position.lat, position.lng)) {
+                console.error("Invalid position provided:", position);
+                return;
+            }
+
             const userPin = new google.maps.marker.PinElement({ // 핀 스타일
                 background: "#267CB5",
                 borderColor: "#ffffff",

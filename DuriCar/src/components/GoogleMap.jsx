@@ -10,6 +10,12 @@ function GoogleMap({socket}) {
     const [clickPosition, setClickPosition] = useState({ lat: null, lng: null });
     const [carPos, setCarPos] = useState({lat: 37, lng: 127})
 
+    socket.on('POS', (msg) => {     // 로봇 위치
+        // console.log("lat: "+msg.lat);
+        // console.log("lng: "+msg.lng);
+        setCarPos({lat: msg.lat, lng: msg.lng});
+    });
+    
     useEffect(() => {
         if (ref.current) {
             const initialMap = new window.google.maps.Map(ref.current, {
@@ -41,12 +47,6 @@ function GoogleMap({socket}) {
         }
 
     }, []);
-
-    socket.on('POS', (msg) => {     // 로봇 위치
-        console.log("lat: "+msg.lat);
-        console.log("lng: "+msg.lng);
-        setCarPos({lat: msg.lat, lng: msg.lng});
-    });
 
     return (
         <Container fluid="xs" className="d-flex justify-content-center align-items-center">
