@@ -5,6 +5,7 @@ import "../style/Marker.css";
 
 function Marker({ user, map, position, title }) {
     const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
+    const [marker, setMarker] = useState(null);
 
     useEffect(() => {
         const checkGoogleMapsLoaded = () => {
@@ -34,23 +35,29 @@ function Marker({ user, map, position, title }) {
             //     glyphColor: "white"
             // })
 
-            if (user) {
-                new google.maps.marker.AdvancedMarkerElement({      // render point
+            if (!marker) {
+                const newMarker = new google.maps.marker.AdvancedMarkerElement({
                     map,
-                    content: userPin.element,
+                    content: user ? userPin.element : duriPin,
                     position: { lat: position.lat, lng: position.lng },
                     title: title
                 });
+    
+                setMarker(newMarker);
             } else {
-                new google.maps.marker.AdvancedMarkerElement({      // render point
-                    map,
-                    content: duriPin,
-                    position: { lat: position.lat, lng: position.lng },
-                    title: title
-                });
+                marker.position = { lat: position.lat, lng: position.lng };
+                marker.title = title;
             }
         }
     }, [map, position, title, googleMapsLoaded]);
+
+    useEffect(() => {
+        return () => {
+            if (marker) {
+                marker.setMap(null);
+            }
+        };
+    }, [marker]);
 
     return null;    // html 객체 렌더링 안함
 }

@@ -13,12 +13,13 @@ function App() {
     const [reqest, setReqest] = useState(false);
     const [result, setResult] = useState(false);
     const [displayCard, setDisplayCard] = useState(false);
+    // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315})
 
     // server-client setting
     const [message, setMessage] = useState("");
 
     // dummy serverUrl
-    const socket = io(`http://localhost:3000`, {
+    const socket = io(`http://192.168.137.53:3000`, {
         cors: {
             orign: "*"
         }
@@ -34,7 +35,7 @@ function App() {
                 google.maps.importLibrary('marker');
                 return (
                     <div className="mapWrapper">
-                        <GoogleMap />
+                        <GoogleMap socket={socket} />
                     </div>
                 )
             default:
@@ -50,10 +51,11 @@ function App() {
         console.log(msg)
         handleArrived();
     });
-    socket.on('POS', (msg) => {     // 현위치
-        console.log(msg)
-        handleArrived();
-    });
+    // socket.on('POS', (msg) => {     // 로봇 위치
+    //     console.log("lat: "+msg.lat);
+    //     console.log("lng: "+msg.lng);
+    //     setCarPos({lat: msg.lat, lng: msg.lng});
+    // });
 
     // 호출 도착하면 실행
     // server -> ARR
