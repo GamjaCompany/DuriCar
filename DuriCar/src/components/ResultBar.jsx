@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Gauge from './Gauge';
 import '../style/ResultBar.css';
 import { useRef, useState } from 'react';
-import { useRef, useState } from 'react';
 import PieChart from './PieChat';
 
 // let dummy = [
@@ -100,9 +99,6 @@ function ResultBar({ conData, handleComplete }) {
                                 <h2>안녕하세요 홍길동 님!</h2>
                                 {/* pie graph? */}
                                 <div className='graph'>
-                                    <Gauge type="일반" value={conData.trash} />
-                                    <Gauge type="플라스틱" value={conData.plastic} />
-                                    <Gauge type="그외" value={conData.etc} />
                                     <Gauge type="일반" value={conData.trash} />
                                     <Gauge type="플라스틱" value={conData.plastic} />
                                     <Gauge type="그외" value={conData.etc} />
