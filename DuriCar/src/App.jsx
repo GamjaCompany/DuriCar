@@ -35,11 +35,12 @@ function App() {
         });
 
         socket.on('CDT', (msg) => {
-            setConData({ trash: msg.trash, plastic: msg.plastic, etc: msg.etc });
-            console.log(conData);
-            if (!prevData) {
-                setPrevData(conData);
-            }
+            setConData((prevConData) => {
+                const newConData = { trash: msg.trash, plastic: msg.plastic, etc: msg.etc };
+                if (!prevData)
+                    setPrevData(prevConData);
+                return newConData;
+            });
         });
         socket.on('ARR', (msg) => {
             console.log(msg);
@@ -52,9 +53,9 @@ function App() {
         // });
         
 
-        return () => {
-            socket.disconnect(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
-        };
+        // return () => {
+        //     socket.disconnect(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
+        // };
     }, []);
 
     const render = (status) => {
