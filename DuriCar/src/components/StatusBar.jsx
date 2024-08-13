@@ -9,12 +9,14 @@ import '../style/StatusBar.css';
 import { useEffect, useRef, useState, useContext } from 'react';
 import Gomduri from '../assets/img/gomduri.png';
 // import sendMessage from './Socket';
+// import sendMessage from './Socket';
 
 function StatusBar({ conData, handleCall, handleCancel }) {
     const socket = useContext(SocketContext);
     const statusBarRef = useRef(null);
     const [call, setCall] = useState(false);
     const [visible, setVisible] = useState(true);
+    const [conData, setConData] = useState({ trash: 0, plastic: 0, etc: 0});
 
     
 
@@ -84,6 +86,9 @@ function StatusBar({ conData, handleCall, handleCancel }) {
                                     >
                                         <h2>곰두리_BOT</h2>
                                         <div className='graph'>
+                                            <Gauge type="일반" value={conData.trash} />
+                                            <Gauge type="플라스틱" value={conData.plastic} />
+                                            <Gauge type="그외" value={conData.etc} />
                                             <Gauge type="일반" value={conData.trash} />
                                             <Gauge type="플라스틱" value={conData.plastic} />
                                             <Gauge type="그외" value={conData.etc} />
