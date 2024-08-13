@@ -1,21 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import { SocketContext } from "./SocketContext";
 import Container from 'react-bootstrap/Container';
 import Marker from "./Marker";
 import "../style/GoogleMap.css";
 
-function GoogleMap({socket}) {
+function GoogleMap() {
 
+    const socket = useContext(SocketContext);
     const ref = useRef(null);
     const [googleMap, setGoogleMap] = useState();
     const [clickPosition, setClickPosition] = useState({ lat: null, lng: null });
-    const [carPos, setCarPos] = useState({lat: 37, lng: 127})
+    const [carPos, setCarPos] = useState({ lat: 37, lng: 127 })
 
-    socket.on('POS', (msg) => {     // 로봇 위치
-        // console.log("lat: "+msg.lat);
-        // console.log("lng: "+msg.lng);
-        setCarPos({lat: msg.lat, lng: msg.lng});
-    });
-    
+    // socket.on('POS', (msg) => {     // 로봇 위치
+    //     // console.log("lat: "+msg.lat);
+    //     // console.log("lng: "+msg.lng);
+    //     setCarPos({lat: msg.lat, lng: msg.lng});
+    // });
+
+    useEffect(() => {
+        socket.on('POS', (msg) => {
+            console.log("Car position:", msg);
+            setCarPos({ lat: msg.lat, lng: msg.lng });
+        });
+
+        return () => {
+            socket.off('POS'); // Clean up
+        };
+    }, [socket]);
+
     useEffect(() => {
         if (ref.current) {
             const initialMap = new window.google.maps.Map(ref.current, {
@@ -78,7 +91,7 @@ function GoogleMap({socket}) {
                         title="Car2"
                     />
                 </>
-            )} 
+            )}
         </Container>
     );
 }
