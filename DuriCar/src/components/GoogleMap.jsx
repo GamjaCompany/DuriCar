@@ -20,7 +20,7 @@ function GoogleMap() {
 
     useEffect(() => {
         socket.on('POS', (msg) => {
-            console.log("Car position:", msg);
+            // console.log(msg);
             setCarPos({ lat: msg.lat, lng: msg.lng });
         });
 

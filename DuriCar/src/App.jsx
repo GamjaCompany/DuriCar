@@ -62,7 +62,7 @@ function App() {
         return () => {
             socket.disconnect(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
         };
-    }, []); // 빈 배열을 주어 한 번만 실행되도록 설정
+    }, []);
 
     const render = (status) => {
         switch (status) {
