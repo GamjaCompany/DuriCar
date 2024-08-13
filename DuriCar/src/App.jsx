@@ -20,7 +20,8 @@ function App() {
     const [reqest, setReqest] = useState(false);
     const [result, setResult] = useState(false);
     const [displayCard, setDisplayCard] = useState(false);
-    // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315}) const [conData, setConData] = useState({ trash: 0, plastic: 0, etc: 0 });
+    // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315})
+    const [conData, setConData] = useState({ trash: 50, plastic: 50, etc: 50 });
 
     // server-client setting
     // const [message, setMessage] = useState("");
@@ -46,8 +47,10 @@ function App() {
         socket.on('server', (msg) => {
             console.log(msg);
         });
+
         socket.on('CDT', (msg) => {
-            console.log(msg);
+            setConData({ trash: msg.trash, plastic: msg.plastic, etc: msg.etc });
+            console.log(conData);
         });
         socket.on('ARR', (msg) => {
             console.log(msg);
@@ -58,11 +61,12 @@ function App() {
         //     // console.log("lng: "+msg.lng);
         //     setCarPos({ lat: msg.lat, lng: msg.lng });
         // });
+        
 
         return () => {
             socket.disconnect(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
         };
-    }, []);
+    }, [socket]);
 
     const render = (status) => {
         switch (status) {
@@ -135,8 +139,8 @@ function App() {
                         onClick={handleRequest}
                     >호출요청</Button>
                 )}
-                {(reqest) && (<StatusBar handleCall={handleCall} handleCancel={handleCancel} />)}
-                {(result) && (<ResultBar handleComplete={handleComplete} />)}
+                {(reqest) && (<StatusBar conData={conData} handleCall={handleCall} handleCancel={handleCancel} />)}
+                {(result) && (<ResultBar conData={conData} handleComplete={handleComplete} />)}
                 {(displayCard) && (<FinCard />)}
                 {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
             </SocketContext.Provider>
