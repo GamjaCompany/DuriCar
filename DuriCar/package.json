@@ -17,6 +17,7 @@
     "@googlemaps/react-wrapper": "^1.1.35",
     "@nivo/pie": "^0.87.0",
     "@react-google-maps/api": "^2.19.3",
+    "animate.css": "^4.1.1",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

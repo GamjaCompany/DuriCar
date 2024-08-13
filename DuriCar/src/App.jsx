@@ -4,6 +4,7 @@ import { SocketContext } from './components/SocketContext';
 import GoogleMap from "./components/GoogleMap"
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'animate.css';
 import './style/App.css'
 import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';

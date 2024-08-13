@@ -7,11 +7,11 @@ import '../style/FinCard.css';
 
 function FinCard({ prevData, conData }) {
     return (
-        <Container className="d-flex justify-content-center">
+        <Container className="d-flex justify-content-center animate__backInUp">
             <Card
                 bg='info'
                 text="white"
-                className="fin"
+                className="fin animate__animated animate__fadeIn"
             >
                 <Card.Header><h2>수거한 품목</h2></Card.Header>
                 <Card.Body>
