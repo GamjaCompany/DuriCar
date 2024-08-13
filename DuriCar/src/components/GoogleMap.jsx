@@ -34,8 +34,8 @@ function GoogleMap() {
             const initialMap = new window.google.maps.Map(ref.current, {
                 center: {       // 초기 위치 대운동장
                     // 정보 저장 소수점 아래 5자리
-                    lat: 37.86832,
-                    lng: 127.74315
+                    lat: 37.86798,
+                    lng: 127.74233
                 },
                 zoom: 18,
                 mapId: '47775df8eb56b6df',
@@ -70,8 +70,8 @@ function GoogleMap() {
                         user={1}
                         map={googleMap}
                         position={{
-                            lat: 37.86832,
-                            lng: 127.74315
+                            lat: 37.86798,
+                            lng: 127.74233
                         }}
                         title="My position"
                     />
