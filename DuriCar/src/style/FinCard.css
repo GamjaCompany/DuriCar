@@ -6,6 +6,16 @@
     z-index: 1000;
 }
 
+.fin {
+    width: 80%; /* 기본 너비: sm 사이즈 */
+  }
+  
+  @media (min-width: 768px) { /* md 사이즈 이상일 때 */
+    .fin {
+      width: 576px; /* md 사이즈 이상일 때 */
+    }
+  } 
+
 .fin>.card-header>h2 {
     margin: 0;
     font-size: larger;
