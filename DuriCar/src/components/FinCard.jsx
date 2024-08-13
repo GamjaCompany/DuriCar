@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import "../style/FinCard.css";
 
-function FinCard() {
+function FinCard({prevData, conData }) {
     return (
         // Gomduri.head
         <Card
@@ -28,13 +28,13 @@ function FinCard() {
                     </Row>
                     <Row>
                         <Col>
-                        <strong>{/* 일반 */}g</strong>
+                        <strong>{conData.trash-prevData.trash}g</strong>
                         </Col>
                         <Col>
-                        <strong>{/* 플라스틱 */}g</strong>
+                        <strong>{conData.plastic-prevData.plastic}g</strong>
                         </Col>
                         <Col>
-                        <strong>{/* 그외 */}g</strong>
+                        <strong>{conData.etc-prevData.etc}g</strong>
                         </Col>
                     </Row>
                 </Container>
