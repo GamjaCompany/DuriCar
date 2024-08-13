@@ -7,14 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/App.css'
 import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';
-import { io } from 'socket.io-client';
 import FinCard from './components/FinCard';
-
-const socket = io(`http://localhost:3000`, {
-    cors: {
-        orign: "*"
-    }
-});
+import socket from './components/Socket';
 
 function App() {
     const [reqest, setReqest] = useState(false);
@@ -23,15 +17,6 @@ function App() {
     // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315})
     const [conData, setConData] = useState({ trash: 50, plastic: 50, etc: 50 });
     const [prevData, setPrevData] = useState(null);
-
-    // server-client setting
-    // const [message, setMessage] = useState("");
-
-    // const socket = io(`http://192.168.0.188:3000`, {
-    //     cors: {
-    //         orign: "*"
-    //     }
-    // });
 
     // dummy serverUrl
 
@@ -50,11 +35,12 @@ function App() {
         });
 
         socket.on('CDT', (msg) => {
-            setConData({ trash: msg.trash, plastic: msg.plastic, etc: msg.etc });
-            console.log(conData);
-            if (!prevData) {
-                setPrevData(conData);
-            }
+            setConData((prevConData) => {
+                const newConData = { trash: msg.trash, plastic: msg.plastic, etc: msg.etc };
+                if (!prevData)
+                    setPrevData(prevConData);
+                return newConData;
+            });
         });
         socket.on('ARR', (msg) => {
             console.log(msg);
@@ -67,10 +53,10 @@ function App() {
         // });
         
 
-        return () => {
-            socket.disconnect(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
-        };
-    }, [socket]);
+        // return () => {
+        //     socket.disconnect(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
+        // };
+    }, []);
 
     const render = (status) => {
         switch (status) {
@@ -147,13 +133,10 @@ function App() {
                 {(reqest) && (<StatusBar conData={conData} handleCall={handleCall} handleCancel={handleCancel} />)}
                 {(result) && (<ResultBar conData={conData} handleComplete={handleComplete} />)}
                 {(displayCard) && (<FinCard prevData={prevData} conData={conData}/>)}
-                {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
             </SocketContext.Provider>
         </div>
 
     )
-
-    // return <FinCard />;
 }
 
 export default App
