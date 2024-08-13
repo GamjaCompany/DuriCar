@@ -7,9 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Gauge from './Gauge';
 import '../style/StatusBar.css';
 import { useEffect, useRef, useState, useContext } from 'react';
-import Gomduri from '../assets/img/gomduri.png';
-// import sendMessage from './Socket';
-// import sendMessage from './Socket';
+
 
 function StatusBar({ conData, handleCall, handleCancel }) {
     const socket = useContext(SocketContext);
@@ -74,7 +72,7 @@ function StatusBar({ conData, handleCall, handleCancel }) {
                 <Card
                     bg="light"
                     text="dark"
-                    className="w-100"
+                    className="animate__animated animate__slideInUp w-100"
                 >
                     <Card.Header onClick={handleClickHeader}>{/* style */}</Card.Header>
                     {(visible) && (
