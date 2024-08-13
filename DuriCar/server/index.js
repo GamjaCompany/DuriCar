@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
   // car position
   const timerId = setInterval(() => {
     socket.emit('POS', { lat: 37.86799, lng: 127.74232 });
-    socket.emit('CDT', { trash: 20, plastic: 20, etc: 20 });
+    socket.emit('CDT', { trash: 30, plastic: 20, etc: 20 });
   }, 1000);
 
   socket.on('disconnect', () => {
