@@ -14,8 +14,6 @@ const io = new Server(server, {
   }
 });
 
-// const __dirname = dirname(fileURLToPath(import.meta.url)); //file send
-
 app.get('/', (req, res) => {
   res.send('<h1>TEMP BICONNECTION SERVER</h1>');
 });
@@ -25,7 +23,8 @@ io.on('connection', (socket) => {
 
   // car position
   const timerId = setInterval(() => {
-    socket.emit('POS', { lat: 37.86799, lng:127.74232});
+    socket.emit('POS', { lat: 37.86799, lng: 127.74232 });
+    socket.emit('CDT', { trash: 20, plastic: 20, etc: 20 });
   }, 1000);
 
   socket.on('disconnect', () => {
@@ -36,15 +35,18 @@ io.on('connection', (socket) => {
   // cli->svr events
   socket.on('REQ', (msg) => {
     console.log('REQ: ' + msg);
-    socket.emit('server',"REQEST");
+    socket.emit('server', "REQEST");
   });
+
   socket.on('CAL', (msg) => {
     console.log('CAL: ' + msg);
     socket.emit('server', "CALL");
-    const calId = setTimeout(() => {
-      socket.emit('ARR', "ARRIVED")
-    }, 3000);
 
+    const calId = setTimeout(() => {
+      socket.emit('ARR', "ARRIVED");
+    }, 3000); // test tine: 3s
+
+    // CAN 이벤트 처리
     socket.on('CAN', (msg) => {
       clearTimeout(calId);    // cancel
       console.log('CAN: ' + msg);
@@ -56,8 +58,8 @@ io.on('connection', (socket) => {
     console.log('FIN: ' + msg);
     socket.emit('server', "COMPLETE");
   });
-
 });
+
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });

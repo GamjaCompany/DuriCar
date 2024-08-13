@@ -13,13 +13,19 @@ function App() {
     const [reqest, setReqest] = useState(false);
     const [result, setResult] = useState(false);
     const [displayCard, setDisplayCard] = useState(false);
-    // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315})
+    // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315}) const [conData, setConData] = useState({ trash: 0, plastic: 0, etc: 0 });
 
     // server-client setting
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
+
+    // const socket = io(`http://192.168.0.188:3000`, {
+    //     cors: {
+    //         orign: "*"
+    //     }
+    // });
 
     // dummy serverUrl
-    const socket = io(`http://192.168.137.53:3000`, {
+    const socket = io(`http://localhost:3000`, {
         cors: {
             orign: "*"
         }
