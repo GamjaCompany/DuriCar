@@ -56,6 +56,9 @@ function App() {
     //     console.log("lng: "+msg.lng);
     //     setCarPos({lat: msg.lat, lng: msg.lng});
     // });
+    // socket.on('CDT', (msg) => {
+    //     console.log(msg)
+    // });
 
     // 호출 도착하면 실행
     // server -> ARR
@@ -109,7 +112,7 @@ function App() {
                     onClick={handleRequest}
                 >호출요청</Button>
             )}
-            {(reqest) && (<StatusBar handleCall={handleCall} handleCancel={handleCancel}/>)}
+            {(reqest) && (<StatusBar socket={socket} handleCall={handleCall} handleCancel={handleCancel}/>)}
             {(result) && (<ResultBar handleComplete={handleComplete} />)}
             {(displayCard) && (<FinCard />)}
             {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}

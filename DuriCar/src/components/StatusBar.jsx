@@ -7,13 +7,18 @@ import Gauge from './Gauge';
 import '../style/StatusBar.css';
 import { useEffect, useRef, useState } from 'react';
 import Gomduri from '../assets/img/gomduri.png';
-import sendMessage from './Socket';
+// import sendMessage from './Socket';
 
-function StatusBar({ handleCall, handleCancel }) {
+function StatusBar({ socket, handleCall, handleCancel }) {
     const [call, setCall] = useState(false);
     const [visible, setVisible] = useState(true);
 
     const statusBarRef = useRef(null);
+
+    // 쓰레기통 용량 측정
+    socket.on('CDT', (msg) => {
+        console.log(msg);
+    });
 
     useEffect(() => {
         if (visible) {
