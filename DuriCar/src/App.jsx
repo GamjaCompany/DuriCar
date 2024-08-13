@@ -7,15 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/App.css'
 import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';
-import { io } from 'socket.io-client';
 import FinCard from './components/FinCard';
 import socket from './components/Socket';
-
-// const socket = io(`http://localhost:3000`, {
-//     cors: {
-//         orign: "*"
-//     }
-// });
 
 function App() {
     const [reqest, setReqest] = useState(false);
@@ -24,15 +17,6 @@ function App() {
     // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315})
     const [conData, setConData] = useState({ trash: 50, plastic: 50, etc: 50 });
     const [prevData, setPrevData] = useState(null);
-
-    // server-client setting
-    // const [message, setMessage] = useState("");
-
-    // const socket = io(`http://192.168.0.188:3000`, {
-    //     cors: {
-    //         orign: "*"
-    //     }
-    // });
 
     // dummy serverUrl
 
@@ -148,13 +132,10 @@ function App() {
                 {(reqest) && (<StatusBar conData={conData} handleCall={handleCall} handleCancel={handleCancel} />)}
                 {(result) && (<ResultBar conData={conData} handleComplete={handleComplete} />)}
                 {(displayCard) && (<FinCard prevData={prevData} conData={conData}/>)}
-                {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
             </SocketContext.Provider>
         </div>
 
     )
-
-    // return <FinCard />;
 }
 
 export default App
