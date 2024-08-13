@@ -22,6 +22,7 @@ function App() {
     const [displayCard, setDisplayCard] = useState(false);
     // const [carPos, setCarPos] = useState({lat: 37.86832, lng: 127.74315})
     const [conData, setConData] = useState({ trash: 50, plastic: 50, etc: 50 });
+    const [prevData, setPrevData] = useState(null);
 
     // server-client setting
     // const [message, setMessage] = useState("");
@@ -51,6 +52,9 @@ function App() {
         socket.on('CDT', (msg) => {
             setConData({ trash: msg.trash, plastic: msg.plastic, etc: msg.etc });
             console.log(conData);
+            if (!prevData) {
+                setPrevData(conData);
+            }
         });
         socket.on('ARR', (msg) => {
             console.log(msg);
@@ -118,6 +122,7 @@ function App() {
         setTimeout(() => {
             closeCard();
             console.log("fincard");
+            setPrevData(null);
         }, 3000);
     }
 
@@ -141,7 +146,7 @@ function App() {
                 )}
                 {(reqest) && (<StatusBar conData={conData} handleCall={handleCall} handleCancel={handleCancel} />)}
                 {(result) && (<ResultBar conData={conData} handleComplete={handleComplete} />)}
-                {(displayCard) && (<FinCard />)}
+                {(displayCard) && (<FinCard prevData={prevData} conData={conData}/>)}
                 {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
             </SocketContext.Provider>
         </div>
