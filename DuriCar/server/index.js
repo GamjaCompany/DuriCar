@@ -9,12 +9,10 @@ const server = createServer(app);
 app.use(cors());
 const io = new Server(server, {
   cors: {
-    origin: "*", // all-domains allowed
+    origin: "*", // 모든 도메인 허용
     methods: ["GET", "POST"]
   }
 });
-
-// const __dirname = dirname(fileURLToPath(import.meta.url)); //file send
 
 app.get('/', (req, res) => {
   res.send('<h1>TEMP BICONNECTION SERVER</h1>');
@@ -25,39 +23,61 @@ io.on('connection', (socket) => {
 
   // car position
   const timerId = setInterval(() => {
-    socket.emit('POS', { lat: 37.86799, lng:127.74232});
+    socket.emit('POS', { lat: 37.86799, lng: 127.74232 });
+    socket.emit('CDT', { trash: 30, plastic: 20, etc: 20 });
   }, 1000);
+
+  const cdtInterval = {
+    flag: true,
+    id: null
+  }; // 타이머 ID 초기화
 
   socket.on('disconnect', () => {
     clearInterval(timerId);
+    if (cdtInterval.id) {
+      clearInterval(cdtInterval.id); // 연결 종료 시 CDT 타이머 정리
+      cdtInterval.flag = false;
+    }
     console.log('user disconnected');
   });
 
-  // cli->svr events
   socket.on('REQ', (msg) => {
     console.log('REQ: ' + msg);
-    socket.emit('server',"REQEST");
+    socket.emit('server', "REQEST");
   });
+
+
   socket.on('CAL', (msg) => {
     console.log('CAL: ' + msg);
     socket.emit('server', "CALL");
-    const calId = setTimeout(() => {
-      socket.emit('ARR', "ARRIVED")
-    }, 3000);
 
+
+    const calId = setTimeout(() => {
+      socket.emit('ARR', "ARRIVED");
+    }, 3000); // test tine: 3s
+
+    // CAN 이벤트 처리
+    // CAN 이벤트 처리
     socket.on('CAN', (msg) => {
-      clearTimeout(calId);    // cancel
+      clearTimeout(calId);    // cancel ARR 타이머
       console.log('CAN: ' + msg);
       socket.emit('server', "CANCEL");
     });
   });
 
   socket.on('FIN', (msg) => {
+    if (cdtInterval.flag) {
+      cdtInterval.flag = false;
+      clearInterval(cdtInterval.id); // CDT 이벤트 타이머 정지
+      cdtInterval.id = null; // 타이머 ID 초기화
+    }
+    cdtInterval.flag = false;
     console.log('FIN: ' + msg);
     socket.emit('server', "COMPLETE");
   });
-
 });
+
+
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
 });

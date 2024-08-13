@@ -5,7 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Gauge from './Gauge';
 import '../style/ResultBar.css';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import PieChart from './PieChat';
 
 // let dummy = [
@@ -41,9 +42,21 @@ import PieChart from './PieChat';
 //     }
 // ]
 
-function ResultBar({ handleComplete }) {
+function ResultBar({ conData, handleComplete }) {
 
     const statusBarRef = useRef(null);
+
+    // 쓰레기통 용량 측정
+    // socket.on('CDT', (msg) => {
+    //     console.log(msg);
+    //     setConData({ trash: msg.trash, plastic: msg.plastic, etc: msg.etc})
+    // });
+
+    // 쓰레기통 용량 측정
+    // socket.on('CDT', (msg) => {
+    //     console.log(msg);
+    //     setConData({ trash: msg.trash, plastic: msg.plastic, etc: msg.etc})
+    // });
 
     // useEffect(() => {
     //     if (visible) {
@@ -87,9 +100,12 @@ function ResultBar({ handleComplete }) {
                                 <h2>안녕하세요 홍길동 님!</h2>
                                 {/* pie graph? */}
                                 <div className='graph'>
-                                    <Gauge type="일반" value={50} />
-                                    <Gauge type="플라스틱" value={50} />
-                                    <Gauge type="그외" value={50} />
+                                    <Gauge type="일반" value={conData.trash} />
+                                    <Gauge type="플라스틱" value={conData.plastic} />
+                                    <Gauge type="그외" value={conData.etc} />
+                                    <Gauge type="일반" value={conData.trash} />
+                                    <Gauge type="플라스틱" value={conData.plastic} />
+                                    <Gauge type="그외" value={conData.etc} />
                                     {/* <PieChart data={dummy} /> */}
                                 </div>
                             </Col>
