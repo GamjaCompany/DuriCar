@@ -1,3 +1,4 @@
+import { SocketContext } from './SocketContext';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -5,15 +6,29 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Gauge from './Gauge';
 import '../style/StatusBar.css';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useContext } from 'react';
 import Gomduri from '../assets/img/gomduri.png';
-import sendMessage from './Socket';
+// import sendMessage from './Socket';
+// import sendMessage from './Socket';
 
-function StatusBar({ handleCall, handleCancel }) {
+function StatusBar({ conData, handleCall, handleCancel }) {
+    const socket = useContext(SocketContext);
+    const statusBarRef = useRef(null);
     const [call, setCall] = useState(false);
     const [visible, setVisible] = useState(true);
+    // const [conData, setConData] = useState({ trash: 0, plastic: 0, etc: 0});
 
-    const statusBarRef = useRef(null);
+    
+
+    // useEffect(() => {
+        // socket.on('CDT', (msg) => {
+        //     setConData({ trash: msg.trash, plastic: msg.plastic, etc: msg.etc });
+        // });
+
+    //     return () => {
+    //         socket.off('CDT'); // Clean up
+    //     };
+    // }, [socket]);
 
     useEffect(() => {
         if (visible) {
@@ -71,9 +86,9 @@ function StatusBar({ handleCall, handleCancel }) {
                                     >
                                         <h2>곰두리_BOT</h2>
                                         <div className='graph'>
-                                            <Gauge type="일반" value={50} />
-                                            <Gauge type="플라스틱" value={50} />
-                                            <Gauge type="그외" value={50} />
+                                            <Gauge type="일반" value={conData.trash} />
+                                            <Gauge type="플라스틱" value={conData.plastic} />
+                                            <Gauge type="그외" value={conData.etc} />
                                         </div>
                                     </Col>
                                     <Col
