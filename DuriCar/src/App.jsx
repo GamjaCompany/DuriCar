@@ -9,12 +9,13 @@ import StatusBar from './components/StatusBar';
 import ResultBar from './components/ResultBar';
 import { io } from 'socket.io-client';
 import FinCard from './components/FinCard';
+import socket from './components/Socket';
 
-const socket = io(`http://localhost:3000`, {
-    cors: {
-        orign: "*"
-    }
-});
+// const socket = io(`http://localhost:3000`, {
+//     cors: {
+//         orign: "*"
+//     }
+// });
 
 function App() {
     const [reqest, setReqest] = useState(false);
@@ -70,7 +71,7 @@ function App() {
         return () => {
             socket.disconnect(); // 컴포넌트가 언마운트될 때 소켓 연결 해제
         };
-    }, [socket]);
+    }, []);
 
     const render = (status) => {
         switch (status) {
