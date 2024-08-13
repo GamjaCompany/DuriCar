@@ -18,8 +18,14 @@ function App() {
     // server-client setting
     const [message, setMessage] = useState("");
 
+    // const socket = io(`http://192.168.0.188:3000`, {
+    //     cors: {
+    //         orign: "*"
+    //     }
+    // });
+
     // dummy serverUrl
-    const socket = io(`http://192.168.137.53:3000`, {
+    const socket = io(`http://localhost:3000/`, {
         cors: {
             orign: "*"
         }
@@ -113,7 +119,7 @@ function App() {
                 >호출요청</Button>
             )}
             {(reqest) && (<StatusBar socket={socket} handleCall={handleCall} handleCancel={handleCancel}/>)}
-            {(result) && (<ResultBar handleComplete={handleComplete} />)}
+            {(result) && (<ResultBar socket={socket} handleComplete={handleComplete} />)}
             {(displayCard) && (<FinCard />)}
             {/* <div className='tmp' onClick={handleResult}>임시 신호</div> */}
         </div>
