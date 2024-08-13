@@ -75,6 +75,15 @@ function GoogleMap() {
                         }}
                         title="My position"
                     />
+                    <Marker
+                        user={1}
+                        map={googleMap}
+                        position={{
+                            lat: 37.86899,
+                            lng: 127.74177
+                        }}
+                        title="My position"
+                    />
                     {/* <Marker
                         user={0}
                         map={googleMap}
